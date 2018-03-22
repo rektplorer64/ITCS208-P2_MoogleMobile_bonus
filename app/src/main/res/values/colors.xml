@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#3F51B5</color>
+	<color name="colorPrimaryDark">#303F9F</color>
+	<color name="colorAccent">#FF4081</color>
+	<color name="white">#ffffff</color>
+	<color name="black">#000000</color>
+
+
+	<color name="action">#ff0d15</color>
+	<color name="adventure">#3237be</color>
+	<color name="animation">#efff66</color>
+	<color name="children">#93143f</color>
+	<color name="comedy">#ffee00</color>
+	<color name="crime">#ff0000</color>
+	<color name="documentary">#730f00</color>
+	<color name="drama">#c1567a</color>
+	<color name="fantasy">#236d8b</color>
+	<color name="filmnoir">#c67993</color>
+	<color name="horror">#12173e</color>
+	<color name="imax">#ac8ff5</color>
+	<color name="musical">#62c453</color>
+	<color name="mystery">#2b1e5c</color>
+	<color name="romance">#f90d5d</color>
+	<color name="scifi">#00ff8c</color>
+	<color name="thriller">#9e5971</color>
+	<color name="war">#9b1d23</color>
+	<color name="western">#d98735</color>
+
+	<color name="undefined">#3d4aff</color>
+	<color name="transparency_color">#00000000</color>
+</resources>

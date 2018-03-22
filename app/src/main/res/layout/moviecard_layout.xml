@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:elevation="@dimen/cardview_default_elevation"
+	app:cardBackgroundColor="@android:color/white"
+	app:cardCornerRadius="0dp"
+	app:cardMaxElevation="3dp"
+	app:cardElevation="2dp"
+	android:layout_margin="8dp"
+	app:cardPreventCornerOverlap="true"
+	app:cardUseCompatPadding="true"
+	tools:targetApi="lollipop">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		>
+
+		<TextView
+			android:id="@+id/movieTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			tools:text="STAR WARS: THE LAST JEDI"
+			android:maxLines="2"
+			android:textSize="22sp"
+			android:textStyle="bold"
+			android:textColor="#000"
+			android:paddingBottom="8dp"/>
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/tagRecycleView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/movieTitle"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			android:orientation="vertical">
+		</android.support.v7.widget.RecyclerView>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			tools:text="132132 Reviews"
+			android:id="@+id/review"
+			android:layout_below="@id/tagRecycleView"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"/>
+
+		<TextView
+			android:id="@+id/score"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingLeft="8dp"
+			tools:text="4.5/5"
+			android:layout_below="@id/tagRecycleView"
+			android:layout_toEndOf="@id/review"
+			android:layout_toRightOf="@id/review"
+			android:paddingStart="8dp"/>
+
+	</RelativeLayout>
+</android.support.v7.widget.CardView>
