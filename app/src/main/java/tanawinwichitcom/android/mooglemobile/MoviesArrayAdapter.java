@@ -5,8 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,15 +15,21 @@ import java.util.List;
 import java.util.Map;
 
 import tanawinwichitcom.android.mooglemobile.moviefetcher.Movie;
-import tanawinwichitcom.android.mooglemobile.moviefetcher.TagsArrayAdapter;
 
 /**
  * Created by tanaw on 3/21/2018.
  */
 
-public class MoviesArrayAdapter extends BaseAdapter{
+public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.ViewHolder>{
     private final ArrayList<Movie> movieArrayList;
     private final Context context;
+
+    private TextView reviewCount;
+    private TextView score;
+    private TextView movieTitle;
+    private RecyclerView horizontalRecyclerView;
+    private RatingBar ratingBar;
+    private TextView movieYear;
 
     public MoviesArrayAdapter(Context context, Map<Integer, Movie> movieMap){
         movieArrayList = new ArrayList<>(movieMap.values());
@@ -35,49 +42,66 @@ public class MoviesArrayAdapter extends BaseAdapter{
     }
 
     @Override
-    public int getCount(){
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        View rootView = LayoutInflater.from(context).inflate(R.layout.moviecard_layout, parent, false);
+        return new ViewHolder(rootView);
+    }
+
+    /**
+     * This method fixes the issue while scrolling some content mess up randomly
+     *
+     * @param position Position
+     *
+     * @return Position
+     */
+    @Override
+    public int getItemViewType(int position){
+        return position;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position){
+        Movie movieEntry = movieArrayList.get(position);
+        if(movieEntry != null){
+            movieTitle.setText(movieEntry.getTitle());
+            if(movieEntry.getTags().size() != 0){
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                RecyclerView.Adapter tagsArrayAdapter = new TagsArrayAdapter(context, movieEntry.getTags());
+                horizontalRecyclerView.setHasFixedSize(true);
+                horizontalRecyclerView.setLayoutManager(layoutManager);
+                horizontalRecyclerView.setAdapter(tagsArrayAdapter);
+            }else{
+                horizontalRecyclerView.setVisibility(View.GONE);
+            }
+            reviewCount.setText("(" + movieEntry.getRating().size() + ")");
+            //System.out.println("rating size " + movieEntry.getRating().size());
+            score.setText(String.format("%.1f ", movieEntry.getMeanRating()));
+            movieYear.setText(" • " + movieEntry.getYear());
+            ratingBar.setRating(movieEntry.getMeanRating().floatValue());
+            ratingBar.setIsIndicator(true);
+        }
+    }
+
+    @Override
+    public long getItemId(int position){
+        return 0;
+    }
+
+    @Override
+    public int getItemCount(){
         return movieArrayList.size();
     }
 
-    @Override
-    public Movie getItem(int i){
-        return movieArrayList.get(i);
-    }
+    class ViewHolder extends RecyclerView.ViewHolder{
 
-    @Override
-    public long getItemId(int i){
-        return movieArrayList.get(i).getID();
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        View rootView = convertView;
-        if(rootView == null){
-            rootView = LayoutInflater.from(context).inflate(R.layout.moviecard_layout, parent, false);
+        ViewHolder(View itemView){
+            super(itemView);
+            movieTitle = itemView.findViewById(R.id.movieTitle);
+            reviewCount = itemView.findViewById(R.id.review);
+            score = itemView.findViewById(R.id.score);
+            horizontalRecyclerView = itemView.findViewById(R.id.tagRecycleView);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            movieYear = itemView.findViewById(R.id.movieYear);
         }
-
-        Movie movieEntry = getItem(position);
-        if(movieEntry != null){
-            TextView movieTitle = rootView.findViewById(R.id.movieTitle);
-            movieTitle.setText(movieEntry.getTitle());
-
-            if(movieEntry.getTags().size() != 0){
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-                RecyclerView.Adapter ratingArrayAdapter = new TagsArrayAdapter(context, movieEntry.getTags());
-                RecyclerView horizontalRecyclerView = rootView.findViewById(R.id.tagRecycleView);
-                horizontalRecyclerView.setHasFixedSize(true);
-                horizontalRecyclerView.setLayoutManager(layoutManager);
-                horizontalRecyclerView.setAdapter(ratingArrayAdapter);
-            }
-
-            TextView reviewCount = rootView.findViewById(R.id.review);
-            reviewCount.setText(movieEntry.getRating().size() + " Reviews");
-            //System.out.println("rating size " + movieEntry.getRating().size());
-
-            TextView score = rootView.findViewById(R.id.score);
-            score.setText(String.format("%.1f / 5.0", movieEntry.getMeanRating()));
-        }
-
-        return rootView;
     }
 }

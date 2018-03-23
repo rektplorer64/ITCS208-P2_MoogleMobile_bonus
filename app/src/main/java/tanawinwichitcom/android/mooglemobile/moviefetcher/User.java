@@ -25,12 +25,14 @@ public class User{
         if(o == null || getClass() != o.getClass()){
             return false;
         }
+
         User user = (User) o;
+
         return uid == user.uid;
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(uid);
+        return uid;
     }
 }

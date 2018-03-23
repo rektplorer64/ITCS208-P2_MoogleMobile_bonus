@@ -47,6 +47,11 @@ public class Movie{
         return "[mid: " + mid + ":" + title + " (" + year + ") " + tags + "] -> avg rating: " + avgRating;
     }
 
+    public String toQueryString(boolean wantTitle, boolean wantTag, boolean wantYear, boolean wantRatings){
+        avgRating = calMeanRating();
+        return ((wantTitle) ? title : "") + ((wantYear) ? (" (" + year + ") ") : "") +
+                ((wantTag) ? (" " + tags + " ") : "") + " " + ((wantRatings) ? (" " + avgRating + " ") : "");
+    }
 
     public double calMeanRating(){
         double sum = 0;
@@ -83,18 +88,35 @@ public class Movie{
         if(o == null || getClass() != o.getClass()){
             return false;
         }
+
         Movie movie = (Movie) o;
-        return mid == movie.mid &&
-                year == movie.year &&
-                Objects.equals(title, movie.title) &&
-                Objects.equals(tags, movie.tags) &&
-                Objects.equals(ratings, movie.ratings) &&
-                Objects.equals(avgRating, movie.avgRating);
+
+        if(mid != movie.mid){
+            return false;
+        }
+        if(year != movie.year){
+            return false;
+        }
+        if(!title.equals(movie.title)){
+            return false;
+        }
+        if(!tags.equals(movie.tags)){
+            return false;
+        }
+        if(!ratings.equals(movie.ratings)){
+            return false;
+        }
+        return avgRating.equals(movie.avgRating);
     }
 
     @Override
     public int hashCode(){
-
-        return Objects.hash(mid, title, year, tags, ratings, avgRating);
+        int result = mid;
+        result = 31 * result + title.hashCode();
+        result = 31 * result + year;
+        result = 31 * result + tags.hashCode();
+        result = 31 * result + ratings.hashCode();
+        result = 31 * result + avgRating.hashCode();
+        return result;
     }
 }

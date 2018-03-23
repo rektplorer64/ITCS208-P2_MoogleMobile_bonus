@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile.moviefetcher;
+package tanawinwichitcom.android.mooglemobile;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,13 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Set;
-
-import tanawinwichitcom.android.mooglemobile.R;
 
 /**
  * Created by tanaw on 3/21/2018.
@@ -35,15 +32,11 @@ public class TagsArrayAdapter extends RecyclerView.Adapter<TagsArrayAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View rootView = LayoutInflater.from(context).inflate(R.layout.tagscard_layout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(rootView);
-        return viewHolder;
+        return new ViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
-        if(tagArrayList.size() == 0){
-            return;
-        }
         String tagsEntry = tagArrayList.get(position);
         if(tagsEntry != null){
             button.setText(tagsEntry);
@@ -133,9 +126,9 @@ public class TagsArrayAdapter extends RecyclerView.Adapter<TagsArrayAdapter.View
         return colorCode;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
-        public ViewHolder(View itemView){
+        ViewHolder(View itemView){
             super(itemView);
             button = itemView.findViewById(R.id.tagTitle);
             cardView = itemView.findViewById(R.id.card);

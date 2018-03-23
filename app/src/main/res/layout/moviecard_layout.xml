@@ -1,65 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	xmlns:tools="http://schemas.android.com/tools"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:elevation="@dimen/cardview_default_elevation"
 	app:cardBackgroundColor="@android:color/white"
-	app:cardCornerRadius="0dp"
-	app:cardMaxElevation="3dp"
+	app:cardCornerRadius="2dp"
 	app:cardElevation="2dp"
-	android:layout_margin="8dp"
+	app:cardMaxElevation="3dp"
 	app:cardPreventCornerOverlap="true"
 	app:cardUseCompatPadding="true"
 	tools:targetApi="lollipop">
 
-	<RelativeLayout
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		>
+		android:orientation="vertical">
+
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				android:id="@+id/heroimage"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:scaleType="centerCrop"
+				android:src="@drawable/placeholderimage"
+				app:layout_constraintDimensionRatio="H,16:9"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+
+		</android.support.constraint.ConstraintLayout>
 
 		<TextView
 			android:id="@+id/movieTitle"
-			android:layout_width="wrap_content"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			tools:text="STAR WARS: THE LAST JEDI"
-			android:maxLines="2"
-			android:textSize="22sp"
-			android:textStyle="bold"
+			android:layout_marginBottom="16dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="24dp"
+			android:maxLines="3"
 			android:textColor="#000"
-			android:paddingBottom="8dp"/>
+			android:textSize="24sp"
+			android:textStyle=""
+
+			tools:text="STAR WARS: THE LAST JEDI"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp">
+
+			<RatingBar
+				android:id="@+id/ratingBar"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				android:layout_marginLeft="16dp"
+				android:layout_marginStart="16dp"
+				android:rating="0.5"
+				style="@style/Widget.AppCompat.RatingBar.Small"
+				android:stepSize="0.5"/>
+
+			<TextView
+				android:id="@+id/score"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8dp"
+				android:layout_gravity="center_vertical"
+				tools:text="4.5 "/>
+
+			<TextView
+				android:id="@+id/review"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				app:layout_constraintRight_toRightOf="@id/heroimage"
+				tools:text="(132132)"/>
+
+
+			<TextView
+				android:id="@+id/movieYear"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				tools:text=" • 2018"/>
+
+		</LinearLayout>
+
 
 		<android.support.v7.widget.RecyclerView
 			android:id="@+id/tagRecycleView"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_below="@id/movieTitle"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentStart="true"
-			android:orientation="vertical">
+			android:orientation="vertical"
+			android:layout_marginBottom="24dp"
+			android:paddingLeft="16dp"
+			android:clipToPadding="false">
 		</android.support.v7.widget.RecyclerView>
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			tools:text="132132 Reviews"
-			android:id="@+id/review"
-			android:layout_below="@id/tagRecycleView"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentStart="true"/>
 
-		<TextView
-			android:id="@+id/score"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:paddingLeft="8dp"
-			tools:text="4.5/5"
-			android:layout_below="@id/tagRecycleView"
-			android:layout_toEndOf="@id/review"
-			android:layout_toRightOf="@id/review"
-			android:paddingStart="8dp"/>
-
-	</RelativeLayout>
+	</LinearLayout>
 </android.support.v7.widget.CardView>

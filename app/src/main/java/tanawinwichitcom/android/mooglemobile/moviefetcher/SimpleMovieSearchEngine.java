@@ -4,8 +4,10 @@ package tanawinwichitcom.android.mooglemobile.moviefetcher;// Name: Tanawin Wich
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.widget.ProgressBar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,13 +24,14 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
     public Map<Integer, Movie> movies;
     private Context context;
 
+
     /**
      * Constructor for the SearchEngine
      */
     public SimpleMovieSearchEngine(Context context){
         movies = new HashMap<>();       /*Initiates the Map*/
         this.context = context;
-        loadData("movies.csv", "ratings.csv");
+        //loadData("movies.csv", "ratings.csv");
     }
 
     /**
@@ -89,6 +92,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
             matcher = categoriesPattern.matcher(movieGenres);       /*Sets the pattern for the Categories String*/
 
             if(movieGenres.equals("(no genres listed)")){   /*If there is no categories to be assign*/
+                moviesMap.get(movieID).addTag("Uncategorized");
                 continue;
             }
 
@@ -98,6 +102,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
                 //System.out.println("Genres = " + matcher.group());
                 moviesMap.get(movieID).addTag(matcher.group());        //j is actually the movieID
             }
+
         }
         return moviesMap;
     }
@@ -298,12 +303,25 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
      */
     @Override
     public List<Movie> sortByTitle(List<Movie> unsortedMovies, boolean asc){
-        unsortedMovies.sort(new Comparator<Movie>(){
-            @Override
-            public int compare(Movie c1, Movie c2){
-                return c1.getTitle().compareToIgnoreCase(c2.getTitle());
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            unsortedMovies.sort(new Comparator<Movie>(){
+                @Override
+                public int compare(Movie c1, Movie c2){
+                    return c1.getTitle().compareToIgnoreCase(c2.getTitle());
+                }
+            });
+        }else{
+            for(int i = 0; i < unsortedMovies.size(); i++){
+                for(int j = i + 1; j < unsortedMovies.size(); j++){
+                    if(asc && unsortedMovies.get(i).getTitle().compareToIgnoreCase(unsortedMovies.get(j).getTitle()) == 1){
+                        Collections.swap(unsortedMovies, i, j);
+                    }
+                    if(!asc && unsortedMovies.get(i).getTitle().compareToIgnoreCase(unsortedMovies.get(j).getTitle()) == -1){
+                        Collections.swap(unsortedMovies, i, j);
+                    }
+                }
             }
-        });
+        }
         if(!asc){
             Collections.reverse(unsortedMovies);
         }

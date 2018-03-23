@@ -33,7 +33,7 @@ public class Rating{
         if(this == o){
             return true;
         }
-        if(o == null || getClass() != o.getClass()){
+        if(!(o instanceof Rating)){
             return false;
         }
         Rating rating1 = (Rating) o;
@@ -43,14 +43,9 @@ public class Rating{
                 Objects.equals(u, rating1.u);
     }
 
-    public User getUser(){
-        return u;
-    }
-
     @Override
     public int hashCode(){
-        return Objects.hash(m, u, rating, timestamp);
+
+        return Objects.hash(u, rating, timestamp);
     }
-
-
 }
