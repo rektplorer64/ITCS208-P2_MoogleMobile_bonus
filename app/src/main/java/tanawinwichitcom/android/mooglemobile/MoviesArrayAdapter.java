@@ -1,12 +1,18 @@
 package tanawinwichitcom.android.mooglemobile;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -23,22 +29,20 @@ import tanawinwichitcom.android.mooglemobile.moviefetcher.Movie;
 public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.ViewHolder>{
     private final ArrayList<Movie> movieArrayList;
     private final Context context;
+    private final Activity activity;
 
-    private TextView reviewCount;
-    private TextView score;
-    private TextView movieTitle;
     private RecyclerView horizontalRecyclerView;
-    private RatingBar ratingBar;
-    private TextView movieYear;
 
-    public MoviesArrayAdapter(Context context, Map<Integer, Movie> movieMap){
+    public MoviesArrayAdapter(Context context, Map<Integer, Movie> movieMap, Activity activity){
         movieArrayList = new ArrayList<>(movieMap.values());
         this.context = context;
+        this.activity = activity;
     }
 
-    public MoviesArrayAdapter(Context context, List<Movie> movieList){
+    public MoviesArrayAdapter(Context context, List<Movie> movieList, Activity activity){
         movieArrayList = new ArrayList<>(movieList);
         this.context = context;
+        this.activity = activity;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.
     public void onBindViewHolder(ViewHolder holder, int position){
         Movie movieEntry = movieArrayList.get(position);
         if(movieEntry != null){
-            movieTitle.setText(movieEntry.getTitle());
+            holder.movieTitle.setText(movieEntry.getTitle());
             if(movieEntry.getTags().size() != 0){
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
                 RecyclerView.Adapter tagsArrayAdapter = new TagsArrayAdapter(context, movieEntry.getTags());
@@ -73,12 +77,38 @@ public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.
             }else{
                 horizontalRecyclerView.setVisibility(View.GONE);
             }
-            reviewCount.setText("(" + movieEntry.getRating().size() + ")");
+            holder.reviewCount.setText("(" + movieEntry.getRating().size() + ")");
             //System.out.println("rating size " + movieEntry.getRating().size());
-            score.setText(String.format("%.1f ", movieEntry.getMeanRating()));
-            movieYear.setText(" • " + movieEntry.getYear());
-            ratingBar.setRating(movieEntry.getMeanRating().floatValue());
-            ratingBar.setIsIndicator(true);
+            holder.score.setText(String.format("%.1f ", movieEntry.getMeanRating()));
+            holder.movieYear.setText(" • " + movieEntry.getYear());
+            holder.ratingBar.setRating(movieEntry.getMeanRating().floatValue());
+            holder.ratingBar.setIsIndicator(true);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    intent.putExtra("movieID", movieEntry.getID());
+
+                    Pair<View, String> heroImagePair = Pair.create(holder.heroImageView, "movieImage");
+                    Pair<View, String> movieTitlePair = Pair.create(holder.movieTitle, "movieTitle");
+                    Pair<View, String> reviewCountPair = Pair.create(holder.reviewCount, "reviewCount");
+                    Pair<View, String> ratingBarPair = Pair.create(holder.ratingBar, "ratingBar");
+                    Pair<View, String> yearPair = Pair.create(holder.movieYear, "year");
+                    Pair<View, String> scorePair = Pair.create(holder.score, "score");
+                    Pair<View, String> tagRecycleViewPair = Pair.create(holder.tagRecycle, "tagRecycler");
+                    Pair<View, String> cardPair = Pair.create(holder.cardView, "movieCard");
+
+
+                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
+                            .makeSceneTransitionAnimation(activity, heroImagePair, movieTitlePair
+                                    , reviewCountPair, reviewCountPair, reviewCountPair
+                                    , yearPair, ratingBarPair, scorePair
+                                    , tagRecycleViewPair, cardPair);
+                    System.out.println(movieEntry.getID());
+                    context.startActivity(intent, optionsCompat.toBundle());
+                }
+            });
         }
     }
 
@@ -94,14 +124,29 @@ public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
+        private TextView reviewCount;
+        private TextView score;
+        private TextView movieTitle;
+        private RatingBar ratingBar;
+        private TextView movieYear;
+        private View itemView;
+        private View heroImageView;
+        private RecyclerView tagRecycle;
+        private CardView cardView;
+
         ViewHolder(View itemView){
             super(itemView);
+            cardView = itemView.findViewById(R.id.movieCard);
             movieTitle = itemView.findViewById(R.id.movieTitle);
             reviewCount = itemView.findViewById(R.id.review);
             score = itemView.findViewById(R.id.score);
             horizontalRecyclerView = itemView.findViewById(R.id.tagRecycleView);
+            tagRecycle = horizontalRecyclerView;
             ratingBar = itemView.findViewById(R.id.ratingBar);
             movieYear = itemView.findViewById(R.id.movieYear);
+            heroImageView = itemView.findViewById(R.id.heroimage);
+
+            this.itemView = itemView;
         }
     }
 }

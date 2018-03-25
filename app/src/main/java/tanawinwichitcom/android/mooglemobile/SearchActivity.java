@@ -3,7 +3,6 @@ package tanawinwichitcom.android.mooglemobile;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
-import android.widget.RelativeLayout;
+import android.widget.Switch;
 
-import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 
 /**
  * Created by tanaw on 3/22/2018.
@@ -27,6 +26,10 @@ public class SearchActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_filter);
+        findViewById(R.id.radio_ascend).setEnabled(false);
+        findViewById(R.id.radio_descend).setEnabled(false);
+        findViewById(R.id.radio_ascend).setClickable(false);
+        findViewById(R.id.radio_descend).setClickable(false);
 
     }
 
@@ -40,7 +43,6 @@ public class SearchActivity extends AppCompatActivity{
 
         MenuItem searchItemMenu = menu.findItem(R.id.app_bar_search);
         searchView = (SearchView) searchItemMenu.getActionView();
-
 
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this, SearchResultActivity.class)));
         searchView.setSubmitButtonEnabled(true);
@@ -83,11 +85,6 @@ public class SearchActivity extends AppCompatActivity{
 
         // Check which radio button was clicked
         switch(view.getId()){
-            case R.id.radio_none:
-                if(checked){
-                    wantSort = false;
-                }
-                break;
             case R.id.radio_ascend:
                 if(checked){
                     wantSort = true;
@@ -100,6 +97,25 @@ public class SearchActivity extends AppCompatActivity{
                     wantAscendingOrder = false;
                 }
                 break;
+        }
+
+    }
+
+    public void onCheckedChanged(View view){
+        boolean checked = ((Switch) view).isChecked();
+        if(checked){
+            wantSort = false;
+            findViewById(R.id.radio_ascend).setEnabled(true);
+            findViewById(R.id.radio_descend).setEnabled(true);
+            findViewById(R.id.radio_ascend).setClickable(true);
+            findViewById(R.id.radio_descend).setClickable(true);
+        }else{
+            findViewById(R.id.radio_ascend).setEnabled(false);
+            findViewById(R.id.radio_descend).setEnabled(false);
+            findViewById(R.id.radio_ascend).setClickable(false);
+            findViewById(R.id.radio_descend).setClickable(false);
+            wantSort = false;
+            wantAscendingOrder = false;
         }
     }
 

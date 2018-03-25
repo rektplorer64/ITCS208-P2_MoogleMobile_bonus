@@ -1,5 +1,6 @@
 package tanawinwichitcom.android.mooglemobile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -54,24 +55,28 @@ public class MainActivity extends AppCompatActivity{
         progressBar = findViewById(R.id.loadProgress);
 
         SimpleMovieSearchEngine simpleMovieSearchEngine = new SimpleMovieSearchEngine(this);
-        new AsyncTaskRunner(this, true, true).execute(simpleMovieSearchEngine);
+        new AsyncTaskRunner(this, true, true, this).execute(simpleMovieSearchEngine);
     }
 
     private static class AsyncTaskRunner extends AsyncTask<SimpleMovieSearchEngine, String, Map<Integer, Movie>>{
 
-        private Context context;
+        private final Activity activity;
+        private final Context context;
         private boolean wantSorted;
         private boolean inAscendingOrder;
         private SimpleMovieSearchEngine movieSearchEngine;
 
-        public AsyncTaskRunner(Context context){
+        public AsyncTaskRunner(Context context, Activity activity){
             this.context = context;
+            this.activity = activity;
+
         }
 
-        public AsyncTaskRunner(Context context, boolean wantSorted, boolean inAscendingOrder){
+        public AsyncTaskRunner(Context context, boolean wantSorted, boolean inAscendingOrder, Activity activity){
             this.context = context;
             this.wantSorted = wantSorted;
             this.inAscendingOrder = inAscendingOrder;
+            this.activity = activity;
         }
 
         @Override
@@ -96,9 +101,9 @@ public class MainActivity extends AppCompatActivity{
             progressBar.setVisibility(View.GONE);
             MainActivity.movieMap = movieMap;
             if(wantSorted){
-                movieArrayAdapter = new MoviesArrayAdapter(context, movieSearchEngine.sortByTitle(new ArrayList<>(movieMap.values()), inAscendingOrder));
+                movieArrayAdapter = new MoviesArrayAdapter(context, movieSearchEngine.sortByTitle(new ArrayList<>(movieMap.values()), inAscendingOrder), activity);
             }else{
-                movieArrayAdapter = new MoviesArrayAdapter(context, movieMap);
+                movieArrayAdapter = new MoviesArrayAdapter(context, movieMap, activity);
             }
             layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             movieRecyclerView.setLayoutManager(layoutManager);

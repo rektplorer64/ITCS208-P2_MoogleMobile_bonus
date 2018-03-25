@@ -1,6 +1,5 @@
 package tanawinwichitcom.android.mooglemobile.moviefetcher;
 
-import java.util.Map;
 import java.util.Objects;
 
 // Name: Tanawin Wichit
@@ -13,7 +12,14 @@ public class Rating{
     public double rating;    //rating can be [0, 5]
     public long timestamp;    //timestamp tells you the time this rating was recorded
 
-
+    /**
+     * Constructor for Rating Class
+     *
+     * @param _u         User who given the Rating
+     * @param _m         Movie who were given the Rating
+     * @param _rating    Score of the Rating
+     * @param _timestamp When the Rating was given
+     */
     public Rating(User _u, Movie _m, double _rating, long _timestamp){
         if(_rating > 5 || _rating < 0){
             return;
@@ -24,6 +30,26 @@ public class Rating{
         this.timestamp = _timestamp;
     }
 
+    public Movie getMovie(){
+        return m;
+    }
+
+    public User getUser(){
+        return u;
+    }
+
+    public double getRating(){
+        return rating;
+    }
+
+    public long getTimestamp(){
+        return timestamp;
+    }
+
+    /**
+     * Returns field variables as a String
+     * @return field variables String
+     */
     public String toString(){
         return "[uid: " + u.getID() + " mid: " + m.getID() + " rating: " + rating + "/5 timestamp: " + timestamp + "]";
     }

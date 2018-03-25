@@ -1,5 +1,6 @@
 package tanawinwichitcom.android.mooglemobile;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -58,7 +59,7 @@ public class SearchResultActivity extends AppCompatActivity{
     private void handleIntent(Intent intent){
         if(Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
-            new AsyncTaskSearch(getApplicationContext(), wantSort, wantAscendingOrder).execute(query);
+            new AsyncTaskSearch(getApplicationContext(), wantSort, wantAscendingOrder, this).execute(query);
         }
     }
 
@@ -80,12 +81,14 @@ public class SearchResultActivity extends AppCompatActivity{
         private final Context context;
         private final boolean inAscendingOrder;
         private final boolean wantSorted;
+        private final Activity activity;
         private int mapSize;
 
-        public AsyncTaskSearch(Context context, boolean wantSorted, boolean inAscendingOrder){
+        public AsyncTaskSearch(Context context, boolean wantSorted, boolean inAscendingOrder, Activity activity){
             this.context = context;
             this.wantSorted = wantSorted;
             this.inAscendingOrder = inAscendingOrder;
+            this.activity = activity;
         }
 
         @Override
@@ -128,12 +131,17 @@ public class SearchResultActivity extends AppCompatActivity{
         protected void onPostExecute(List<Movie> movieList){
             researchListRecycleView.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
-            progressDetails.setVisibility(View.GONE);
 
+            if(movieList.size() == 0){
+                progressDetails.setText("No Data to be shown, please re-enter your criteria. :D");
+                return;
+            }
+
+            progressDetails.setVisibility(View.GONE);
             if(wantSorted){
-                moviesArrayAdapter = new MoviesArrayAdapter(context, MainActivity.globalSimpleSearchEngine.sortByTitle(movieList, inAscendingOrder));
+                moviesArrayAdapter = new MoviesArrayAdapter(context, MainActivity.globalSimpleSearchEngine.sortByTitle(movieList, inAscendingOrder), activity);
             }else{
-                moviesArrayAdapter = new MoviesArrayAdapter(context, movieList);
+                moviesArrayAdapter = new MoviesArrayAdapter(context, movieList, activity);
             }
 
             /*Animations*/

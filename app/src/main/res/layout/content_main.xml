@@ -11,7 +11,9 @@
 		android:id="@+id/movieRecyclerView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:clipToPadding="false"
 		android:fastScrollEnabled="true"
+		android:paddingBottom="16dp"
 		app:layout_constraintBottom_toBottomOf="@+id/loadProgress"
 		app:layout_constraintEnd_toEndOf="@+id/loadProgress"
 		app:layout_constraintHorizontal_bias="0.0"
@@ -23,15 +25,16 @@
 		android:id="@+id/loadProgress"
 		style="@android:style/Widget.DeviceDefault.Light.ProgressBar"
 		android:layout_width="wrap_content"
-		android:foregroundGravity="center"
 		android:layout_height="wrap_content"
-		android:layout_centerInParent="true"/>
+		android:layout_centerInParent="true"
+		android:foregroundGravity="center"/>
 
 	<TextView
 		android:id="@+id/loadDetail"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_below="@id/loadProgress"
 		android:layout_centerHorizontal="true"
-		android:layout_below="@id/loadProgress"/>
+		android:layout_centerInParent="true"/>
 
 </RelativeLayout>

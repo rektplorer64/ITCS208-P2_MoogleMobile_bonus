@@ -9,15 +9,12 @@
 	app:cardBackgroundColor="@android:color/white"
 	app:cardCornerRadius="2dp"
 	app:cardElevation="2dp"
+	android:id="@+id/movieCard"
 	app:cardMaxElevation="3dp"
 	app:cardPreventCornerOverlap="true"
-	android:id="@+id/movieCard"
 	android:paddingHorizontal="8dp"
 	android:paddingVertical="8dp"
-	android:layout_marginTop="8dp"
-	android:layout_marginHorizontal="8dp"
-	tools:targetApi="lollipop"
-	android:transitionName="movieCard">
+	tools:targetApi="lollipop">
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -37,8 +34,7 @@
 				app:layout_constraintDimensionRatio="H,16:9"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				android:transitionName="movieImage"/>
+				app:layout_constraintTop_toTopOf="parent"/>
 
 		</android.support.constraint.ConstraintLayout>
 
@@ -56,8 +52,7 @@
 			android:textColor="#000"
 			android:textSize="24sp"
 			android:textStyle=""
-			tools:text="STAR WARS: THE LAST JEDI"
-			android:transitionName="movieTitle"/>
+			tools:text="STAR WARS: THE LAST JEDI"/>
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -73,8 +68,7 @@
 				android:layout_marginStart="16dp"
 				android:rating="0.5"
 				style="@style/Widget.AppCompat.RatingBar.Small"
-				android:stepSize="0.5"
-				android:transitionName="ratingBar"/>
+				android:stepSize="0.5"/>
 
 			<TextView
 				android:id="@+id/score"
@@ -82,8 +76,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="8dp"
 				android:layout_gravity="center_vertical"
-				tools:text="4.5 "
-				android:transitionName="score"/>
+				tools:text="4.5 "/>
 
 			<TextView
 				android:id="@+id/review"
@@ -91,8 +84,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_vertical"
 				app:layout_constraintRight_toRightOf="@id/heroimage"
-				tools:text="(132132)"
-				android:transitionName="reviewCount"/>
+				tools:text="(132132)"/>
 
 
 			<TextView
@@ -100,8 +92,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_gravity="center_vertical"
-				tools:text=" • 2018"
-				android:transitionName="year"/>
+				tools:text=" • 2018"/>
 
 		</LinearLayout>
 
@@ -112,9 +103,8 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical"
 			android:layout_marginBottom="24dp"
-			android:paddingStart="16dp"
-			android:clipToPadding="false"
-			android:transitionName="tagRecycler">
+			android:paddingLeft="16dp"
+			android:clipToPadding="false">
 		</android.support.v7.widget.RecyclerView>
 
 

@@ -1,8 +1,7 @@
-package tanawinwichitcom.android.mooglemobile.moviefetcher;// Name: Tanawin Wichit
+package tanawinwichitcom.android.mooglemobile.moviefetcher;
+// Name: Tanawin Wichit
 // Student ID: 6088221
 // Section: 1
-
-import java.util.Objects;
 
 public class User{
     public static int lastUserID;

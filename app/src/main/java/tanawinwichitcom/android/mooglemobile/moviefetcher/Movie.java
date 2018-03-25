@@ -2,17 +2,28 @@ package tanawinwichitcom.android.mooglemobile.moviefetcher;// Name: Tanawin Wich
 // Student ID: 6088221
 // Section: 1
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Movie{
-    private int mid;
-    private String title;
-    private int year;
-    private Set<String> tags;
-    private Map<Integer, Rating> ratings;    //mapping userID -> rating
-    private Double avgRating;
+    //Field Variables
+    private int mid;        /*An integer for Movie ID*/
+    private String title;       /*A String for Movie Title*/
+    private int year;       /*An integer for Movie's year of release*/
+    private Set<String> tags;       /*A Set for Movie's tags*/
+    private Map<Integer, Rating> ratings;    //mapping userID -> rating /*A Map for Ratings of the Movie (Integer of UserID is key, Rating is value)*/
+    private Double avgRating;       /*A Double for Average Rating*/
     //additional
 
+    /**
+     * The constructor for Movie class
+     *
+     * @param _mid   Movie ID
+     * @param _title Movie Title
+     * @param _year  Movie's year of release
+     */
     public Movie(int _mid, String _title, int _year){
         this.mid = _mid;
         this.title = _title;
@@ -22,37 +33,86 @@ public class Movie{
         ratings = new HashMap<>();
     }
 
+    /**
+     * Returns Movie ID as an integer
+     *
+     * @return Movie ID
+     */
     public int getID(){
         return mid;
     }
 
+    /**
+     * Returns Movie Title as a String
+     *
+     * @return Movie Title
+     */
     public String getTitle(){
         return title;
     }
 
+    /**
+     * Returns Movie tags as a Set
+     *
+     * @return Movie tags
+     */
     public Set<String> getTags(){
         return tags;
     }
 
+    /**
+     * Adds a tag to the tags Set by giving a String
+     *
+     * @param tag A tag to add
+     */
     public void addTag(String tag){
         tags.add(tag);
     }
 
+    /**
+     * Returns Movie's Year of release as an integer
+     *
+     * @return Movie's Year of release
+     */
     public int getYear(){
         return year;
     }
 
+    /**
+     * Returns field variables as a String
+     *
+     * @return field variables String
+     */
     public String toString(){
         avgRating = calMeanRating();
         return "[mid: " + mid + ":" + title + " (" + year + ") " + tags + "] -> avg rating: " + avgRating;
     }
 
+    /**
+     * Returns string of the Movie based on input parameters
+     *
+     * @param wantTitle   Boolean of the need for the Title
+     * @param wantTag     Boolean of the need for the Tag
+     * @param wantYear    Boolean of the need for the Year
+     * @param wantRatings Boolean of the need for the Rating
+     *
+     * @return the String for querying
+     */
     public String toQueryString(boolean wantTitle, boolean wantTag, boolean wantYear, boolean wantRatings){
         avgRating = calMeanRating();
-        return ((wantTitle) ? title : "") + ((wantYear) ? (" (" + year + ") ") : "") +
-                ((wantTag) ? (" " + tags + " ") : "") + " " + ((wantRatings) ? (" " + avgRating + " ") : "");
+        if(!wantTitle && !wantTag && !wantYear && !wantRatings){
+            return toString();
+        }else{
+            return ((wantTitle) ? title : "") + ((wantYear) ? (" (" + year + ") ") : "") +
+                    ((wantTag) ? (" " + tags + " ") : "") + " " + ((wantRatings) ? (" " + avgRating + " ") : "");
+        }
     }
 
+    /**
+     * Calculates the average Rating
+     *
+     * @return average Rating
+     */
     public double calMeanRating(){
         double sum = 0;
         //System.out.println("rating size " + ratings.size());
@@ -63,6 +123,11 @@ public class Movie{
         return avgRating;
     }
 
+    /**
+     * Calculates the average Rating and return it
+     *
+     * @return average Rating
+     */
     public Double getMeanRating(){
         avgRating = calMeanRating();
         return avgRating;

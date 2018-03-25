@@ -2,26 +2,24 @@ package tanawinwichitcom.android.mooglemobile.moviefetcher;// Name: Tanawin Wich
 // Student ID: 6088221
 // Section: 1
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.widget.ProgressBar;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 
 public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
-    public Map<Integer, Movie> movies;
+    private Map<Integer, Movie> movies;
     private Context context;
 
 
@@ -225,6 +223,13 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
         return result;
     }
 
+    /**
+     * Search Movies by using year input
+     *
+     * @param year Year of released
+     *
+     * @return the List of Movies which fulfills the criteria
+     */
     @Override
     public List<Movie> searchByYear(int year){
         List<Movie> result = new ArrayList<>();
@@ -236,6 +241,15 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
         return result;
     }
 
+    /**
+     * Search movies by given at least one field (title, tag, year)
+     *
+     * @param title Keyword String
+     * @param tag   Keyword Tag String
+     * @param year  Year of released
+     *
+     * @return the List of Movies which fulfills the criteria
+     */
     @Override
     public List<Movie> advanceSearch(String title, String tag, int year){
         List<Movie> result = new ArrayList<>();
@@ -311,13 +325,10 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
                 }
             });
         }else{
-            for(int i = 0; i < unsortedMovies.size(); i++){
-                for(int j = i + 1; j < unsortedMovies.size(); j++){
-                    if(asc && unsortedMovies.get(i).getTitle().compareToIgnoreCase(unsortedMovies.get(j).getTitle()) == 1){
-                        Collections.swap(unsortedMovies, i, j);
-                    }
-                    if(!asc && unsortedMovies.get(i).getTitle().compareToIgnoreCase(unsortedMovies.get(j).getTitle()) == -1){
-                        Collections.swap(unsortedMovies, i, j);
+            for(int i = 0; i < unsortedMovies.size() - 1; i++){     //Bubble sort String Array Alphabetically
+                for(int j = 1; j < unsortedMovies.size() - i; j++){
+                    if(unsortedMovies.get(j).getTitle().compareToIgnoreCase(unsortedMovies.get(j - 1).getTitle()) < 0){
+                        Collections.swap(unsortedMovies, j, j - 1);
                     }
                 }
             }
@@ -329,10 +340,12 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
     }
 
     /**
-     * @param unsortedMovies
-     * @param asc
+     * Sort Given List of Movies Numerically by their Average Rating
      *
-     * @return
+     * @param unsortedMovies List of target Movies
+     * @param asc            Boolean for Sorting in Ascending Order. If it is false, it means Sorting in Descending Order.
+     *
+     * @return Alphabetically Sorted List
      */
     @Override
     public List<Movie> sortByRating(List<Movie> unsortedMovies, boolean asc){
