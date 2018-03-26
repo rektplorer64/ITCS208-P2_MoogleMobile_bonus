@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
         movieRecyclerView = findViewById(R.id.movieRecyclerView);
         progressBar = findViewById(R.id.loadProgress);
 

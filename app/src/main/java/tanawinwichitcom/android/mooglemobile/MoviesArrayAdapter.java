@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,11 +66,12 @@ public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         Movie movieEntry = movieArrayList.get(position);
+        //Toast.makeText(context, "Movie Title = " + movieEntry.getTitle() + "| Array Position = " + position, Toast.LENGTH_SHORT).show();
         if(movieEntry != null){
-            holder.movieTitle.setText(movieEntry.getTitle());
+            holder.movieTitle.setText(movieEntry.getTitle() + " | position: " + position);
             if(movieEntry.getTags().size() != 0){
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-                RecyclerView.Adapter tagsArrayAdapter = new TagsArrayAdapter(context, movieEntry.getTags());
+                RecyclerView.Adapter tagsArrayAdapter = new MovieCategories_RecycleViewAdapter(context, movieEntry.getTags());
                 horizontalRecyclerView.setHasFixedSize(true);
                 horizontalRecyclerView.setLayoutManager(layoutManager);
                 horizontalRecyclerView.setAdapter(tagsArrayAdapter);

@@ -23,7 +23,6 @@
 		</activity>
 		<activity
 			android:name=".SearchActivity"
-			android:launchMode="singleInstance"
 			android:parentActivityName=".MainActivity"
 			android:screenOrientation="portrait">
 			<meta-data
@@ -33,7 +32,6 @@
 
 		<activity
 			android:name=".SearchResultActivity"
-			android:launchMode="singleInstance"
 			android:parentActivityName=".SearchActivity"
 			android:screenOrientation="portrait">
 			<meta-data

@@ -59,7 +59,7 @@ public class SearchResultActivity extends AppCompatActivity{
     private void handleIntent(Intent intent){
         if(Intent.ACTION_SEARCH.equals(intent.getAction())){
             String query = intent.getStringExtra(SearchManager.QUERY);
-            new AsyncTaskSearch(getApplicationContext(), wantSort, wantAscendingOrder, this).execute(query);
+            new AsyncTaskSearch(this, wantSort, wantAscendingOrder, this).execute(query);
         }
     }
 

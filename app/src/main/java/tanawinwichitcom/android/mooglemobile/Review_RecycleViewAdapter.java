@@ -1,7 +1,6 @@
 package tanawinwichitcom.android.mooglemobile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,8 +12,6 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Map;
 
 import tanawinwichitcom.android.mooglemobile.moviefetcher.Movie;
 import tanawinwichitcom.android.mooglemobile.moviefetcher.Rating;
@@ -23,23 +20,23 @@ import tanawinwichitcom.android.mooglemobile.moviefetcher.Rating;
  * Created by tanaw on 3/24/2018.
  */
 
-public class RatingsArrayAdapter extends RecyclerView.Adapter<RatingsArrayAdapter.ViewHolder>{
+public class Review_RecycleViewAdapter extends RecyclerView.Adapter<Review_RecycleViewAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Rating> ratings;
 
-    public RatingsArrayAdapter(Context context, Movie movie){
+    public Review_RecycleViewAdapter(Context context, Movie movie){
         this.context = context;
         ratings = new ArrayList<>(movie.getRating().values());
     }
 
     @Override
-    public RatingsArrayAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public Review_RecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View rootView = LayoutInflater.from(context).inflate(R.layout.ratingcard_layout, parent, false);
         return new ViewHolder(rootView);
     }
 
     @Override
-    public void onBindViewHolder(RatingsArrayAdapter.ViewHolder holder, int position){
+    public void onBindViewHolder(Review_RecycleViewAdapter.ViewHolder holder, int position){
         Rating userRatingEntry = ratings.get(position);
         holder.userID.setText(Integer.toString(userRatingEntry.getUser().getID()));
         holder.ratingBar.setRating((float) userRatingEntry.getRating());

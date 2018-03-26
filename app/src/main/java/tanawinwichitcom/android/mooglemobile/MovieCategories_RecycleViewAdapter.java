@@ -16,14 +16,14 @@ import java.util.Set;
  * Created by tanaw on 3/21/2018.
  */
 
-public class TagsArrayAdapter extends RecyclerView.Adapter<TagsArrayAdapter.ViewHolder>{
+public class MovieCategories_RecycleViewAdapter extends RecyclerView.Adapter<MovieCategories_RecycleViewAdapter.ViewHolder>{
     private final ArrayList<String> tagArrayList;
     private final Context context;
 
     private CardView cardView;
     private TextView button;
 
-    public TagsArrayAdapter(Context context, Set<String> tagsSet){
+    public MovieCategories_RecycleViewAdapter(Context context, Set<String> tagsSet){
         tagArrayList = new ArrayList<>();
         tagArrayList.addAll(tagsSet);
         this.context = context;
