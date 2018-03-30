@@ -9,6 +9,7 @@
 	</style>
 
 	<style name="AppFullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 	</style>
 
 	<style name="SearchTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -19,6 +20,5 @@
 		<item name="colorControlNormal">@color/orange</item>
 		<item name="colorControlActivated">@color/lightGrey</item>
 	</style>
-
 
 </resources>

@@ -4,4 +4,13 @@
 	<string name="search_hint">Search Movies</string>
 	<string name="search">Search</string>
 	<string name="searchHint_movies">Search Movies</string>
+
+	<string-array name="sort_type_array">
+		<item>Alphabet</item>
+		<item>Average Score</item>
+		<item>Year</item>
+		<item>Number of Ratings</item>
+		<item>Number of Tags</item>
+	</string-array>
+
 </resources>

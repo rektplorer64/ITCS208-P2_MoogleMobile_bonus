@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile.moviefetcher;
+package tanawinwichitcom.android.mooglemobile.Moviefetcher;
 
 import java.util.List;
 import java.util.Map;

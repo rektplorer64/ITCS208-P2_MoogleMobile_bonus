@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import tanawinwichitcom.android.mooglemobile.moviefetcher.Movie;
-import tanawinwichitcom.android.mooglemobile.moviefetcher.Rating;
+import tanawinwichitcom.android.mooglemobile.R;
+import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
+import tanawinwichitcom.android.mooglemobile.Moviefetcher.Rating;
 
 /**
  * Created by tanaw on 3/24/2018.
@@ -27,6 +28,15 @@ public class Review_RecycleViewAdapter extends RecyclerView.Adapter<Review_Recyc
     public Review_RecycleViewAdapter(Context context, Movie movie){
         this.context = context;
         ratings = new ArrayList<>(movie.getRating().values());
+    }
+
+    public Review_RecycleViewAdapter(Context context, Movie movie, int totalChildren){
+        this.context = context;
+        if(movie.getRating().values().size() <= totalChildren){
+            ratings = new ArrayList<>(movie.getRating().values());
+        }else{
+            ratings = new ArrayList<>((new ArrayList<>(movie.getRating().values())).subList(1, totalChildren));
+        }
     }
 
     @Override

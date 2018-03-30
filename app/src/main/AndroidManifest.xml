@@ -14,7 +14,8 @@
 
 		<activity
 			android:name=".MainActivity"
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:theme="@style/AppFullScreenTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
@@ -33,7 +34,8 @@
 		<activity
 			android:name=".SearchResultActivity"
 			android:parentActivityName=".SearchActivity"
-			android:screenOrientation="portrait">
+			android:screenOrientation="portrait"
+			android:theme="@style/AppFullScreenTheme">
 			<meta-data
 				android:name="android.app.searchable"
 				android:resource="@layout/searchable">
@@ -49,7 +51,12 @@
 			android:parentActivityName=".MainActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/AppFullScreenTheme">
+		</activity>
 
+		<activity android:name=".ReviewPageActivity"
+		          android:parentActivityName=".ProfileActivity"
+		          android:screenOrientation="portrait"
+		          android:theme="@style/AppFullScreenTheme">
 		</activity>
 	</application>
 </manifest>

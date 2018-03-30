@@ -1,4 +1,5 @@
-package tanawinwichitcom.android.mooglemobile.moviefetcher;// Name: Tanawin Wichit
+package tanawinwichitcom.android.mooglemobile.Moviefetcher;
+// Name: Tanawin Wichit
 // Student ID: 6088221
 // Section: 1
 
@@ -8,6 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Movie{
+
+    public static Set<String> allPossibleTags = new HashSet<>();
+
     //Field Variables
     private int mid;        /*An integer for Movie ID*/
     private String title;       /*A String for Movie Title*/
@@ -31,6 +35,10 @@ public class Movie{
 
         tags = new HashSet<>();
         ratings = new HashMap<>();
+    }
+
+    public static boolean isAvailableInTheDatabase(int movieID, Map<Integer, Movie> moviesMap){
+        return moviesMap.get(movieID) != null && movieID == moviesMap.get(movieID).mid;
     }
 
     /**
@@ -67,6 +75,7 @@ public class Movie{
      */
     public void addTag(String tag){
         tags.add(tag);
+        allPossibleTags.add(tag);
     }
 
     /**
@@ -103,8 +112,8 @@ public class Movie{
         if(!wantTitle && !wantTag && !wantYear && !wantRatings){
             return toString();
         }else{
-            return ((wantTitle) ? title : "") + ((wantYear) ? (" (" + year + ") ") : "") +
-                    ((wantTag) ? (" " + tags + " ") : "") + " " + ((wantRatings) ? (" " + avgRating + " ") : "");
+            return ((wantTitle) ? title : "") + ((wantYear) ? (" " + year) : "") +
+                    ((wantTag) ? (" " + tags) : "") + ((wantRatings) ? (" " + avgRating) : "");
         }
     }
 
@@ -139,10 +148,6 @@ public class Movie{
 
     public Map<Integer, Rating> getRating(){
         return ratings;
-    }
-
-    public static boolean isAvailableInTheDatabase(int movieID, Map<Integer, Movie> moviesMap){
-        return moviesMap.get(movieID) != null && movieID == moviesMap.get(movieID).mid;
     }
 
     @Override

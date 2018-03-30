@@ -1,5 +1,8 @@
 package tanawinwichitcom.android.mooglemobile;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +15,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import tanawinwichitcom.android.mooglemobile.moviefetcher.Movie;
+import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.MovieCategories_RecycleViewAdapter;
+import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.Review_RecycleViewAdapter;
+import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
 
 /**
  * Created by tanaw on 3/24/2018.
@@ -35,14 +44,23 @@ public class ProfileActivity extends AppCompatActivity{
     private TextView movieYear;                             /* TextView for displaying the Movie's Year */
     private RecyclerView reviewRecycleView;                 /* RecycleView for each Review item (on the Lower CardView) */
     private RecyclerView tagRecycleView;                    /* RecycleView for tags */
+    private Button moreReviewButton;
+    private ImageView heroImage;
+
+    private ImageButton favoriteButton;
+    private ImageButton addToPlaylistButton;
+    private ImageButton lookUpButton;
+    private ImageButton shareButton;
 
     private int movieID;
+
+    private Context context = this;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        //getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         /* Custom Activity's Toolbar */
         Toolbar toolbar = findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
@@ -54,6 +72,9 @@ public class ProfileActivity extends AppCompatActivity{
         movieID = getIntent().getIntExtra("movieID", 1);                          /* Receives Integer from the Intent which is called by other Activity (By giving value name, and default value) */
         movieEntry = MainActivity.movieMap.get(movieID);                                            /* Use that ID to locate Movie entry by using get(movieID) on public HashMap of Movie */
         //System.out.println(movieEntry);
+
+        heroImage = findViewById(R.id.imageView);
+        heroImage.setAnimation(AnimationUtils.loadAnimation(this, R.anim.bottom_down));
 
         /* Binds title TextView to title value of current Movie entry */
         title = findViewById(R.id.movieTitle);
@@ -80,6 +101,20 @@ public class ProfileActivity extends AppCompatActivity{
         movieYear = findViewById(R.id.movieYear);
         movieYear.setText(" • " + movieEntry.getYear());
 
+        moreReviewButton = findViewById(R.id.moreReviewButton);
+        if(movieEntry.getRating().size() == 0){
+            moreReviewButton.setVisibility(View.GONE);
+        }else{
+            moreReviewButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent intent = new Intent(getBaseContext(), ReviewPageActivity.class);
+                    intent.putExtra("movieID", movieID);
+                    startActivity(intent);
+                }
+            });
+        }
+
         /* Binds Tags List to the RecycleView */
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);        /* Specifies the orientation of the RecycleView */
         tagsArrayAdapter = new MovieCategories_RecycleViewAdapter(this, movieEntry.getTags());                                              /* Instantiates the custom ArrayAdapter by giving context and Tags List */
@@ -88,25 +123,70 @@ public class ProfileActivity extends AppCompatActivity{
         tagRecycleView.setLayoutManager(layoutManager);                                                                                            /* Binds LayoutManager to RecycleView */
         tagRecycleView.setAdapter(tagsArrayAdapter);                                                                                               /* Binds ArrayAdapter to RecycleView */
 
+        /* Sets up ImageButtons */
+        favoriteButton = findViewById(R.id.favoriteButton);
+        favoriteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //TODO: Implement Adding Favorite
+                Toast.makeText(context, "Favorite feature Coming Soon(TM)", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        addToPlaylistButton = findViewById(R.id.addToPlaylistButton);
+        addToPlaylistButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //TODO: Implement Adding to Playlist
+                Toast.makeText(context, "Add to Playlist feature Coming Soon(TM)", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lookUpButton = findViewById(R.id.lookUpButton);
+        lookUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.putExtra(SearchManager.QUERY, movieEntry.getTitle()); // query contains search string
+                context.startActivity(intent);
+            }
+        });
+
+        shareButton = findViewById(R.id.shareButton);
+        shareButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                //TODO: Implement Sharing
+                Toast.makeText(context, "Share feature Coming Soon(TM)", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         /* Binds Review List to the RecycleView */
-        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);         /* Specifies the orientation of the RecycleView (LayoutManager cannot be user twice, so it must be created for the second RecycleView) */
-        reviewsArrayAdapter = new Review_RecycleViewAdapter(this, movieEntry);                                                              /* Instantiates the custom ArrayAdapter by giving context and Tags List */
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);         /* Specifies the orientation of the RecycleView (LayoutManager cannot be user twice, so it must be created for the second RecycleView) */
+        reviewsArrayAdapter = new Review_RecycleViewAdapter(this, movieEntry, 4);                                                              /* Instantiates the custom ArrayAdapter by giving context and Tags List */
         reviewRecycleView = findViewById(R.id.ratingsRecycleView);                                                                                 /* Binds to RecycleView by its resource ID */
         reviewRecycleView.setHasFixedSize(true);                                                                                                   /* Fixes the size of RecycleView (This increases Performance) */
         reviewRecycleView.setLayoutManager(layoutManager2);                                                                                        /* Binds LayoutManager to RecycleView */
         reviewRecycleView.setAdapter(reviewsArrayAdapter);                                                                                         /* Binds ArrayAdapter to RecycleView */
 
+        /* UNUSED - Getting Screen Width and Height */
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
-        Animation bottomUp = AnimationUtils.loadAnimation(this, R.anim.bottom_up);
-        FrameLayout cardViewFrameLayout = findViewById(R.id.tagCardView);
+        /* Sets the animation for the Actions Card */
+        Animation bottomUp = AnimationUtils.loadAnimation(this, R.anim.bottom_up);      /* Loads from XML file in res/anim */
+        FrameLayout actionsCardFrameLayout = findViewById(R.id.actionsCardLayout);
+        actionsCardFrameLayout.startAnimation(bottomUp);
+        actionsCardFrameLayout.invalidate();
+        actionsCardFrameLayout.setVisibility(View.VISIBLE);
 
-        cardViewFrameLayout.startAnimation(bottomUp);
-        cardViewFrameLayout.invalidate();
-        cardViewFrameLayout.setVisibility(View.VISIBLE);
+        /* Sets the animation for the Review Card */
+        FrameLayout reviewCardFrameLayout = findViewById(R.id.reviewCardLayout);
+        reviewCardFrameLayout.startAnimation(bottomUp);
+        reviewCardFrameLayout.invalidate();
+        reviewCardFrameLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -126,4 +206,5 @@ public class ProfileActivity extends AppCompatActivity{
         }
         return true;
     }
+
 }

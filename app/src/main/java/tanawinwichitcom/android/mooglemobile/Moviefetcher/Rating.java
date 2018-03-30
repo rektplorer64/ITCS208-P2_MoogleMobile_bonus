@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile.moviefetcher;
+package tanawinwichitcom.android.mooglemobile.Moviefetcher;
 
 import java.util.Objects;
 
@@ -48,6 +48,7 @@ public class Rating{
 
     /**
      * Returns field variables as a String
+     *
      * @return field variables String
      */
     public String toString(){

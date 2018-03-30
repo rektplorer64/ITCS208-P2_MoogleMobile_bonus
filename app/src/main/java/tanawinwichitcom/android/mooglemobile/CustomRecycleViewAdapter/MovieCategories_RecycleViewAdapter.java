@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import tanawinwichitcom.android.mooglemobile.R;
 
 /**
  * Created by tanaw on 3/21/2018.

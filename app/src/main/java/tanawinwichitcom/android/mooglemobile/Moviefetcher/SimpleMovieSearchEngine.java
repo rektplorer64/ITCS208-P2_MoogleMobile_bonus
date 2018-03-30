@@ -1,10 +1,10 @@
-package tanawinwichitcom.android.mooglemobile.moviefetcher;// Name: Tanawin Wichit
+package tanawinwichitcom.android.mooglemobile.Moviefetcher;
+// Name: Tanawin Wichit
 // Student ID: 6088221
 // Section: 1
 
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,9 +22,10 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
     private Map<Integer, Movie> movies;
     private Context context;
 
-
     /**
-     * Constructor for the SearchEngine
+     * Constructor for SimpleMovieSearchEngine class
+     *
+     * @param context Context of the Activity (Will be used in Reading from files)
      */
     public SimpleMovieSearchEngine(Context context){
         movies = new HashMap<>();       /*Initiates the Map*/
@@ -39,7 +40,6 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
      *
      * @return A Map filled with fetched Data
      */
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Map<Integer, Movie> loadMovies(String movieFilename){
         Map<Integer, Movie> moviesMap = new HashMap<>();    /*The Map*/
@@ -339,6 +339,63 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
         return unsortedMovies;
     }
 
+    public List<Movie> sortByGivenType(List<Movie> unsortedMovies, boolean asc, int sortType){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            switch(sortType){
+                case 0:
+                    System.out.println("Sort by Title");
+                    unsortedMovies.sort(new Comparator<Movie>(){
+                        @Override
+                        public int compare(Movie c1, Movie c2){
+                            return c1.getTitle().compareToIgnoreCase(c2.getTitle());
+                        }
+                    });
+                    break;
+                case 1:
+                    System.out.println("Sort by Avg Rating");
+                    unsortedMovies.sort(new Comparator<Movie>(){
+                        @Override
+                        public int compare(Movie o1, Movie o2){
+                            return Double.compare(o1.getMeanRating(), o2.getMeanRating());
+                        }
+                    });
+                    break;
+                case 2:
+                    System.out.println("Sort by Year");
+                    unsortedMovies.sort(new Comparator<Movie>(){
+                        @Override
+                        public int compare(Movie c1, Movie c2){
+                            //return ((Integer) c1.getYear()).compareTo(c2.getYear());
+                            return c1.getYear() - c2.getYear();
+                        }
+                    });
+                    break;
+                case 3:
+                    System.out.println("Sort by Number of Ratings");
+                    unsortedMovies.sort(new Comparator<Movie>(){
+                        @Override
+                        public int compare(Movie c1, Movie c2){
+                            return c1.getRating().size() - c2.getRating().size();
+                        }
+                    });
+                    break;
+                case 4:
+                    System.out.println("Sort by Number of Tags");
+                    unsortedMovies.sort(new Comparator<Movie>(){
+                        @Override
+                        public int compare(Movie c1, Movie c2){
+                            return c1.getTags().size() - c2.getTags().size();
+                        }
+                    });
+                    break;
+            }
+        }
+        if(!asc){
+            Collections.reverse(unsortedMovies);
+        }
+        return unsortedMovies;
+    }
+
     /**
      * Sort Given List of Movies Numerically by their Average Rating
      *
@@ -349,16 +406,35 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine{
      */
     @Override
     public List<Movie> sortByRating(List<Movie> unsortedMovies, boolean asc){
-        for(int i = 0; i < unsortedMovies.size(); i++){
-            for(int j = i + 1; j < unsortedMovies.size(); j++){
-                if(asc && unsortedMovies.get(i).getMeanRating() > unsortedMovies.get(j).getMeanRating()){
-                    Collections.swap(unsortedMovies, i, j);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            unsortedMovies.sort(new Comparator<Movie>(){        /*Anonymous Class for custom Comparator which is required when sorting Custom Object or Class*/
+                /**
+                 * Compares 2 Movies by their Title
+                 * @param c1 Movie 1
+                 * @param c2 Movie 2
+                 * @return An integer which will indicate which Movie Title is higher in Alphabetical Order
+                 */
+                @Override
+                public int compare(Movie c1, Movie c2){
+                    return Double.compare(c1.getMeanRating(), c2.getMeanRating());        /*Compare Movies by their Mean Rating (by using Double.compare())*/
                 }
-                if(!asc && unsortedMovies.get(i).getMeanRating() < unsortedMovies.get(j).getMeanRating()){
-                    Collections.swap(unsortedMovies, i, j);
+            });
+            if(!asc){
+                Collections.reverse(unsortedMovies);
+            }
+        }else{
+            for(int i = 0; i < unsortedMovies.size(); i++){
+                for(int j = i + 1; j < unsortedMovies.size(); j++){
+                    if(asc && unsortedMovies.get(i).getMeanRating() > unsortedMovies.get(j).getMeanRating()){
+                        Collections.swap(unsortedMovies, i, j);
+                    }
+                    if(!asc && unsortedMovies.get(i).getMeanRating() < unsortedMovies.get(j).getMeanRating()){
+                        Collections.swap(unsortedMovies, i, j);
+                    }
                 }
             }
         }
+
         return unsortedMovies;
     }
 
