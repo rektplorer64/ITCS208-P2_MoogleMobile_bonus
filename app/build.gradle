@@ -21,8 +21,8 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             res.srcDirs = [
                     'src/main/res/layouts/activity',
                     'src/main/res/layouts/recycleview_item',

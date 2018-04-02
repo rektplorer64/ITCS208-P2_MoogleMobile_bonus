@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:elevation="@dimen/cardview_default_elevation"
+	app:cardBackgroundColor="@android:color/white"
+	app:cardCornerRadius="5dp"
+	app:cardElevation="2dp"
+	app:cardMaxElevation="3dp"
+	app:cardPreventCornerOverlap="true"
+	android:id="@+id/movieCard"
+	android:paddingHorizontal="8dp"
+	android:paddingVertical="8dp"
+	android:layout_marginTop="8dp"
+	android:layout_marginHorizontal="8dp"
+	app:contentPaddingBottom="8dp"
+	android:foreground="?android:attr/selectableItemBackground"
+	tools:targetApi="lollipop"
+	android:transitionName="movieCard">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				android:id="@+id/heroimage"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:scaleType="centerCrop"
+				android:src="@drawable/placeholderimage"
+				app:layout_constraintDimensionRatio="H,16:9"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				android:transitionName="movieImage"/>
+
+		</android.support.constraint.ConstraintLayout>
+
+		<TextView
+			android:id="@+id/movieTitle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginLeft="16dp"
+			android:layout_marginRight="16dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="24dp"
+			android:maxLines="3"
+			android:textColor="#000"
+			android:textSize="24sp"
+			android:textStyle=""
+			tools:text="STAR WARS: THE LAST JEDI"
+			android:transitionName="movieTitle"/>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="16dp">
+
+			<RatingBar
+				android:id="@+id/ratingBar"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				android:layout_marginLeft="16dp"
+				android:layout_marginStart="16dp"
+				android:rating="0"
+				style="@style/Widget.AppCompat.RatingBar.Small"
+				android:stepSize="0.5"
+				android:transitionName="ratingBar"/>
+
+			<TextView
+				android:id="@+id/score"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8dp"
+				android:layout_gravity="center_vertical"
+				tools:text="4.5 "
+				android:transitionName="score"/>
+
+			<TextView
+				android:id="@+id/review"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				app:layout_constraintRight_toRightOf="@id/heroimage"
+				tools:text="(132132)"
+				android:transitionName="reviewCount"/>
+
+
+			<TextView
+				android:id="@+id/movieYear"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_vertical"
+				tools:text=" • 2018"
+				android:transitionName="year"/>
+
+		</LinearLayout>
+
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/tagRecycleView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:layout_marginBottom="12dp"
+			android:paddingStart="16dp"
+			android:clipToPadding="false"
+			android:transitionName="tagRecycler"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:layout_marginLeft="8dp">
+
+			<ImageButton
+				android:id="@+id/favoriteButton"
+				android:layout_width="wrap_content"
+				android:padding="8dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_favorite_border_black_24dp"
+				android:layout_marginRight="8dp"
+				android:background="?android:attr/selectableItemBackgroundBorderless"/>
+			<ImageButton
+				android:id="@+id/lookUpButton"
+				android:layout_width="wrap_content"
+				android:padding="8dp"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_search_black_24dp"
+				android:layout_marginRight="8dp"
+				android:background="?android:attr/selectableItemBackgroundBorderless"/>
+		</LinearLayout>
+
+
+	</LinearLayout>
+</android.support.v7.widget.CardView>
