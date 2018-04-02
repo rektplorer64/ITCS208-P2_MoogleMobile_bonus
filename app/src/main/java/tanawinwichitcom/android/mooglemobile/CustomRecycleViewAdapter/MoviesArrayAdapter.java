@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
-import tanawinwichitcom.android.mooglemobile.ProfileActivity;
+import tanawinwichitcom.android.mooglemobile.Activities.MovieProfileActivity;
 import tanawinwichitcom.android.mooglemobile.R;
 
 /**
@@ -120,7 +120,7 @@ public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.
                 @Override
                 public void onClick(View v){
 
-                    Intent intent = new Intent(context, ProfileActivity.class);
+                    Intent intent = new Intent(context, MovieProfileActivity.class);
                     intent.putExtra("movieID", movieEntry.getID());
 
                     View decor = ((Activity) context).getWindow().getDecorView();               /* Gets DecorationView by casting Context yo Activity */
@@ -160,7 +160,7 @@ public class MoviesArrayAdapter extends RecyclerView.Adapter<MoviesArrayAdapter.
                     //actionBar.invalidate();
                     //actionBar.setVisibility(View.GONE);
 
-                    context.startActivity(intent, optionsCompat.toBundle());        /* Start ProfileActivity with Shared Element Transitions Animations */
+                    context.startActivity(intent, optionsCompat.toBundle());        /* Start MovieProfileActivity with Shared Element Transitions Animations */
                 }
             });
         }

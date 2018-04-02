@@ -1,8 +1,9 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.Activities;
 
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,18 +15,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+
+import tanawinwichitcom.android.mooglemobile.R;
 
 
 /**
  * Created by tanaw on 3/22/2018.
  */
 
-public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class SearchFilterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private boolean wantSort = false, wantAscendingOrder = true, wantTitle = true, wantTag = true, wantYear = true, wantRatings = true;
     private int sortType;
@@ -35,6 +38,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_filter);
+
+        Toolbar toolbar = findViewById(R.id.searchFilterToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.white)));
+        //getSupportActionBar()
 
         /* Disables Radio buttons and the Spinner when the Activity starts */
         findViewById(R.id.radio_ascend).setEnabled(false);

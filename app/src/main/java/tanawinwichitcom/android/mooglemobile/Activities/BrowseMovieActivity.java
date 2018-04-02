@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+
 import android.transition.Explode;
+
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
@@ -29,8 +32,9 @@ import java.util.Map;
 import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.MoviesArrayAdapter;
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.SimpleMovieSearchEngine;
+import tanawinwichitcom.android.mooglemobile.R;
 
-public class MainActivity extends AppCompatActivity{
+public class BrowseMovieActivity extends AppCompatActivity{
 
     public static Map<Integer, Movie> movieMap;
     public static SimpleMovieSearchEngine globalSimpleSearchEngine;
@@ -42,16 +46,8 @@ public class MainActivity extends AppCompatActivity{
     Toolbar toolbar;
 
     @Override
-    protected void onResume(){
-        //toolbar.setVisibility(View.VISIBLE);
-        // Animation toolbar_down = AnimationUtils.loadAnimation(this, R.anim.toolbar_down);
-        // toolbar.startAnimation(toolbar_down);
-        super.onResume();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState){
-        setTheme(R.style.AppFullScreenTheme);
+        //setTheme(R.style.AppFullScreenTheme);
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_main);
@@ -59,12 +55,14 @@ public class MainActivity extends AppCompatActivity{
         toolbar = findViewById(R.id.mainToolbar);       /* Binds toolbar by ID */
         setSupportActionBar(toolbar);       /* Sets toolbar as the support Action Bar for the Activity */
         getSupportActionBar().setDisplayShowTitleEnabled(false);        /* Hides the default Title Text on Action Bar */
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white);
 
         floatingActionButton = findViewById(R.id.fab);      /* Binds FAB by ID */
         floatingActionButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getBaseContext(), SearchActivity.class);     /* When FAB is clicked, it will launch SearchActivity */
+                Intent intent = new Intent(getBaseContext(), SearchFilterActivity.class);     /* When FAB is clicked, it will launch SearchFilterActivity */
                 startActivity(intent);
             }
         });
@@ -88,6 +86,7 @@ public class MainActivity extends AppCompatActivity{
             new AsyncTaskRunner(this, false, false, this).execute(simpleMovieSearchEngine);
         }
     }
+
 
     /**
      * Custom AsyncTask Class for loading CSV files in the background
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity{
         protected void onPostExecute(Map<Integer, Movie> movieMap){
             //super.onPostExecute(movieMap);
             progressBar.setVisibility(View.GONE);       /* Hides the Progress Indicator */
-            MainActivity.movieMap = movieMap;
+            BrowseMovieActivity.movieMap = movieMap;
 
             if(wantSorted){     /* If sorting is wanted, call sortByTitle then pass ArrayList to MovieArrayAdapter (It has to be ArrayList */
                 movieArrayAdapter = new MoviesArrayAdapter(context, movieSearchEngine.sortByTitle(new ArrayList<>(movieMap.values()), inAscendingOrder), activity);

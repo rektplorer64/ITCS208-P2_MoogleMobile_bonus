@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.Activities;
 
 import android.app.Activity;
 import android.app.SearchManager;
@@ -20,7 +20,6 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,8 +30,9 @@ import java.util.Set;
 
 import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.MoviesArrayAdapter;
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
+import tanawinwichitcom.android.mooglemobile.R;
 
-import static tanawinwichitcom.android.mooglemobile.MainActivity.movieMap;
+import static tanawinwichitcom.android.mooglemobile.Activities.BrowseMovieActivity.movieMap;
 
 /**
  * Created by tanaw on 3/23/2018.
@@ -79,7 +79,7 @@ public class SearchResultActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchresult);
 
-        /* Binds FAB by ID (Because this activity borrows XML layout from MainActivity) */
+        /* Binds FAB by ID (Because this activity borrows XML layout from BrowseMovieActivity) */
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setVisibility(View.GONE);      /* Hides FAB */
 
@@ -89,15 +89,17 @@ public class SearchResultActivity extends AppCompatActivity{
 
         Toolbar toolbar = findViewById(R.id.mainToolbar);       /* Binds Toolbar by ID */
         setSupportActionBar(toolbar);       /* Sets toolbar as the support Action Bar for the Activity */
-        getSupportActionBar().setDisplayShowTitleEnabled(false);        /* Hides the Title in the Action Bar */
+        getSupportActionBar().setDisplayShowTitleEnabled(true);        /* Hides the Title in the Action Bar */
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Search Results");
 
-        ImageButton backImageButton = findViewById(R.id.backArrow);
-        backImageButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                onBackPressed();        /* When clicking back arrow, it will return to the previous activity */
-            }
-        });
+        // ImageButton backImageButton = findViewById(R.id.backArrow);
+        // backImageButton.setOnClickListener(new View.OnClickListener(){
+        //     @Override
+        //     public void onClick(View v){
+        //         onBackPressed();        /* When clicking back arrow, it will return to the previous activity */
+        //     }
+        // });
 
         handleIntent(getIntent());
     }
@@ -207,9 +209,9 @@ public class SearchResultActivity extends AppCompatActivity{
             /* Assigns movieArrayAdapter based on the sorting boolean */
             if(wantSorted){         /* If sorting is wanted */
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    moviesArrayAdapter = new MoviesArrayAdapter(context, MainActivity.globalSimpleSearchEngine.sortByGivenType(movieList, inAscendingOrder, sortType), activity);
+                    moviesArrayAdapter = new MoviesArrayAdapter(context, BrowseMovieActivity.globalSimpleSearchEngine.sortByGivenType(movieList, inAscendingOrder, sortType), activity);
                 }else{      /* If sorting is not wanted */
-                    moviesArrayAdapter = new MoviesArrayAdapter(context, MainActivity.globalSimpleSearchEngine.sortByTitle(movieList, inAscendingOrder), activity);
+                    moviesArrayAdapter = new MoviesArrayAdapter(context, BrowseMovieActivity.globalSimpleSearchEngine.sortByTitle(movieList, inAscendingOrder), activity);
                 }
             }else{
                 moviesArrayAdapter = new MoviesArrayAdapter(context, movieList, activity);

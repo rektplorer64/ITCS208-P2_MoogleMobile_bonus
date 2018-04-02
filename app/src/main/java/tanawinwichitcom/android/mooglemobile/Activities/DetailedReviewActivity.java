@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +18,13 @@ import java.util.Map;
 import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.Review_RecycleViewAdapter;
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.Rating;
+import tanawinwichitcom.android.mooglemobile.R;
 
 /**
  * Created by tanaw on 3/26/2018.
  */
 
-public class ReviewPageActivity extends AppCompatActivity{
+public class DetailedReviewActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -40,7 +41,7 @@ public class ReviewPageActivity extends AppCompatActivity{
         Intent intent = getIntent();
         int movieID = intent.getIntExtra("movieID", 1);     /* Receives an integer of movieID from previous Activity */
 
-        Movie movieEntry = MainActivity.movieMap.get(movieID);      /* Gets a Movie instance by getting it from Movie Map using movieID as the key */
+        Movie movieEntry = BrowseMovieActivity.movieMap.get(movieID);      /* Gets a Movie instance by getting it from Movie Map using movieID as the key */
         Map<Integer, Rating> ratingMap = movieEntry.getRating();        /* Gets the Map of rating */
 
         /* Sets Text for Big Average Rating */

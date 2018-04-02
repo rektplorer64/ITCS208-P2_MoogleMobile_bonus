@@ -1,4 +1,4 @@
-package tanawinwichitcom.android.mooglemobile;
+package tanawinwichitcom.android.mooglemobile.Activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -26,12 +26,13 @@ import android.widget.Toast;
 import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.MovieCategories_RecycleViewAdapter;
 import tanawinwichitcom.android.mooglemobile.CustomRecycleViewAdapter.Review_RecycleViewAdapter;
 import tanawinwichitcom.android.mooglemobile.Moviefetcher.Movie;
+import tanawinwichitcom.android.mooglemobile.R;
 
 /**
  * Created by tanaw on 3/24/2018.
  */
 
-public class ProfileActivity extends AppCompatActivity{
+public class MovieProfileActivity extends AppCompatActivity{
 
     private Movie movieEntry;                               /* An entry for Movie which is used for shown data in the activity */
     private Review_RecycleViewAdapter reviewsArrayAdapter;        /* The RecycleViewAdapter for the list of */
@@ -70,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity{
 
         /* Getting Movie's ID value from the called intent */
         movieID = getIntent().getIntExtra("movieID", 1);                          /* Receives Integer from the Intent which is called by other Activity (By giving value name, and default value) */
-        movieEntry = MainActivity.movieMap.get(movieID);                                            /* Use that ID to locate Movie entry by using get(movieID) on public HashMap of Movie */
+        movieEntry = BrowseMovieActivity.movieMap.get(movieID);                                            /* Use that ID to locate Movie entry by using get(movieID) on public HashMap of Movie */
         //System.out.println(movieEntry);
 
         heroImage = findViewById(R.id.imageView);
@@ -108,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity{
             moreReviewButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Intent intent = new Intent(getBaseContext(), ReviewPageActivity.class);
+                    Intent intent = new Intent(getBaseContext(), DetailedReviewActivity.class);
                     intent.putExtra("movieID", movieID);
                     startActivity(intent);
                 }

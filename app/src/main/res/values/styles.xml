@@ -6,10 +6,19 @@
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
 	</style>
 
-	<style name="AppFullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+	<style name="AppFullScreenTheme" parent="BaseAppFullScreenTheme">
+	</style>
+	<style name="BaseAppFullScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+		<item name="colorPrimaryDark">#512DA8</item>
+		<item name="colorPrimary">#673AB7</item>
+		<item name="colorAccent">#FF4081</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
 	</style>
 
 	<style name="SearchTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -20,5 +29,9 @@
 		<item name="colorControlNormal">@color/orange</item>
 		<item name="colorControlActivated">@color/lightGrey</item>
 	</style>
+
+	<style name="AppFullScreenTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+	<style name="AppFullScreenTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>
