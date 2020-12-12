@@ -19,7 +19,7 @@
 ## 🚩 Motivations
 After the implementation of [Moogle](https://github.com/rektplorer64/ITCS208-P2_Moogle) had completed, students were assigned to create another application that is based on Moogle.
 Each student group can choose the approach of their implementation, for instance, they could create a web, an app or a desktop application.
-With that freedom, my group decided to work on an Android application development of Moogle in order to experiment and further improve our skills at creating Android app using Java.
+With that freedom, my group decided to work on an Android application development of Moogle in order to experiment and further improve my skills at creating Android app using Java.
 Therefore, this project is basically an extended implementation for [Moogle](https://github.com/rektplorer64/ITCS208-P2_Moogle) with a graphic user interface built as an Android Application. 
 The app itself at the time has no architectural design in mind in the sense that everything (logic and UI) is contained inside specific Activities. 
 
@@ -32,3 +32,9 @@ The app itself at the time has no architectural design in mind in the sense that
 - [x] Rating and comments of each movie is randomized.
 - [x] Each movie has tags.
 - [x] Activity transition animations are used. 
+
+## Explanations and Screenshots
+This is the document that I submitted to the instructor => ![Link](![Page 1](repo_metadata/documents/bonusDocumentationV2.pdf)
+![Page 1](repo_metadata/documents/bonusDocumentationV2_001.png)
+![Page 2](repo_metadata/documents/bonusDocumentationV2_002.png)
+![Page 3](repo_metadata/documents/bonusDocumentationV2_003.png)
