@@ -14,7 +14,7 @@
 <p>A GUI implementation of Moogle on Android</p>
 </div>
 
-![Project Hero Image](repo_metadata\hero_image.png)
+![Project Hero Image](repo_metadata/hero_image.png)
 
 ## 🚩 Motivations
 After the implementation of [Moogle](https://github.com/rektplorer64/ITCS208-P2_Moogle) had completed, students were assigned to create another application that is based on Moogle.
