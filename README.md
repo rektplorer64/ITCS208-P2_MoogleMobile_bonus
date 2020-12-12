@@ -33,8 +33,8 @@ The app itself at the time has no architectural design in mind in the sense that
 - [x] Each movie has tags.
 - [x] Activity transition animations are used. 
 
-## Explanations and Screenshots
-![This](repo_metadata/documents/bonusDocumentationV2.pdf) is the document that I submitted to the instructor.
+## 🖼 Explanations and Screenshots
+[This](repo_metadata/documents/bonusDocumentationV2.pdf) is the document that I submitted to the instructor.
 ![Page 1](repo_metadata/documents/bonusDocumentationV2_001.png)
 ![Page 2](repo_metadata/documents/bonusDocumentationV2_002.png)
 ![Page 3](repo_metadata/documents/bonusDocumentationV2_003.png)
